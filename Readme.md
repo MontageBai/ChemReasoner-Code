@@ -1,38 +1,106 @@
-# ChemReasoner: Think Like a Scientist - A Specialized Reasoning LLM for Chemistry
+# MOFReasoner
 
-## Overview
+MOFReasoner (currently released as **ChemReasoner**) is a **domain-specific reasoning large language model (LLM)** designed to think like a scientist. It integrates **Chain-of-Thought (CoT) reasoning** and **knowledge distillation** to enhance scientific reasoning in chemistry, with a particular focus on **Metal-Organic Frameworks (MOFs)** adsorption research.
 
-**ChemReasoner** is a domain-specific reasoning model specifically designed to enhance scientific reasoning capabilities in the field of chemistry. Focusing on Metal-Organic Frameworks (MOFs) adsorption as a case study, ChemReasoner leverages knowledge distillation and Chain-of-Thought (CoT) reasoning to deliver scientifically accurate predictions and insights. This repository contains the resources, data, and model code for ChemReasoner, developed by Xuefeng Bai, Hao-Tian Wang, Rui Yang, Xin Zhang, Zhiling Zheng, and Jian-Rong Li from the Beijing University of Technology.
+---
 
-## Abstract
+## 🚀 Introduction
 
-Large Language Models (LLMs) have shown potential in transforming chemical research through knowledge extraction, reasoning, and data-driven discovery. However, general-purpose designs constrain their ability for deep scientific understanding in specialized fields like chemistry. ChemReasoner addresses this by utilizing knowledge distillation from robust teacher models and CoT reasoning, developed from an extensive corpus of over 8,200 research articles and 500 reviews. The model's effectiveness is demonstrated through four core task categories: experimental studies, chemical mechanisms, application scenarios, and industrialization challenges. ChemReasoner outperforms existing models like GPT-4.5 and DeepSeek-R1-671B in providing predictions consistent with DFT calculations.
+General-purpose large language models (LLMs) have shown impressive capabilities in natural language understanding and reasoning. However, their lack of domain specialization limits their ability to perform **multi-step scientific reasoning**.  
+MOFReasoner addresses this limitation by incorporating domain-specific knowledge, scientific reasoning strategies, and structured CoT reasoning.
 
-## Introduction
+Key innovations:
 
-Traditional AI applications revolutionized tasks like molecular design and reaction prediction. LLMs further accelerate these advancements by excelling in knowledge extraction and complex reasoning. Despite progress through techniques like fine-tuning, LLMs still lack the ability to perform multi-step chemical reasoning and in-depth scientific analysis. ChemReasoner tackles this by integrating domain-specific knowledge and structured CoT reasoning processes, enabling more reliable and scientifically sound conclusions.
+- **Domain Knowledge Integration**: Leveraging over **8,200 research articles** and **500 review papers** to construct a domain-specific CoT dataset.  
+- **Knowledge Distillation**: Transferring expertise from large teacher models (e.g., DeepSeek-V3, Qwen-Turbo, DeepSeek-R1) into smaller, efficient student models.  
+- **Scientific Reasoning Skills**: Mimicking scientists’ problem-solving pathways, such as hypothesis generation, validation, and logical deduction.  
+- **Benchmarking & Applications**: Evaluated on tasks including experimental studies, chemical mechanisms, application scenarios, and industrialization challenges in MOFs research.
 
-## Features
+---
 
-- **Domain-Specific Training**: Uses a comprehensive dataset constructed from research articles and reviews, combined with general chemistry and reasoning datasets.
-- **Chain-of-Thought Reasoning**: Structures logical inference step-by-step to enhance scientific reasoning capabilities.
-- **Knowledge Distillation**: Efficiently transfers domain expertise from large models to more compact ones.
-- **Advanced Reasoning and Understanding**: Outperforms general-purpose models in chemistry-focused tasks.
+## 📊 Features
 
-## Methodology
+- **Multi-step reasoning** for scientific tasks (experiment design, reaction prediction, performance analysis).  
+- **Domain specialization** in **MOF adsorption**, catalysis, and chemical mechanism exploration.  
+- **High performance** compared to general-purpose LLMs (outperforming GPT-4.5, DeepSeek-R1, etc.).  
+- **Material recommendation ability** with accuracy comparable to Density Functional Theory (DFT).  
+- **Adaptability**: Easily extendable to other chemistry-related domains by incorporating domain CoT data.
 
-ChemReasoner employs a comprehensive data collection and training strategy using Llama-Factory, LoRA fine-tuning, and supervised fine-tuning techniques:
+---
 
-- **Data Collection**: Sources include Web of Science, review journals, and Hugging Face platforms.
-- **Data Distillation and Validation**: Extracts key insights via teacher models and validates with LLM-assisted screening and expert evaluation.
-- **Model Training**: Utilizes DeepSeek-R1-Distill-Qwen-7B with a focus on domain-specific chemical reasoning.
+## 📥 Model Access
 
-## Evaluation
+- **Model weights (Hugging Face)**: [ChemReasoner-7B](https://huggingface.co/baixuefeng/ChemReasoner-7B)  
+- **Code repository (GitHub)**: [ChemReasoner-Code](https://github.com/MontageBai/ChemReasoner-Code)  
+- **Direct download (model files)**: [Download from Hugging Face](https://huggingface.co/baixuefeng/ChemReasoner-7B/resolve/main/pytorch_model.bin)  
 
-ChemReasoner was evaluated on benchmark tasks, demonstrating accurate and precise scientific predictions. It achieves a high score compared to base models and well-known LLMs, effectively learning scientific reasoning patterns and domain knowledge.
+⚠️ Note: The project will soon be renamed to **MOFReasoner**, but the current release is under the name **ChemReasoner**.
 
-## Use Cases
+---
 
-- **Knowledge-Based Q&A**: Provides well-founded answers following logical reasoning akin to scientific methods.
-- **Material Screening**: Recommends materials consistent with DFT calculation results.
-- **Scientific Research Assistance**: Supports hypothesis generation and advanced material research.
+## ⚙️ How to Use
+
+You can run the model directly from Hugging Face using [vLLM](https://github.com/vllm-project/vllm) or [SGLang](https://github.com/sgl-project/sglang).  
+
+### Example with vLLM
+
+```bash
+vllm serve baixuefeng/ChemReasoner-7B --tensor-parallel-size 2 --max-model-len 32768 --enforce-eager
+```
+
+### Example with SGLang
+
+```bash
+python3 -m sglang.launch_server --model baixuefeng/ChemReasoner-7B --trust-remote-code --tp 2
+```
+
+---
+
+## 📈 Performance
+
+MOFReasoner was evaluated against leading models (DeepSeek, Qwen, GPT series, etc.) across **four major task categories**:
+
+- **Experimental Studies** of MOFs  
+- **Chemical Mechanisms** of adsorption  
+- **Application Scenarios** of MOF-based adsorbents  
+- **Industrialization Challenges**
+
+Highlights:
+
+- Achieved the **highest expert-evaluated score (25.5/30)**, outperforming GPT-4.5, o1-preview, and DeepSeek-R1.  
+- Provided **more accurate and reliable reasoning chains**, avoiding serious errors common in general-purpose models.  
+- Demonstrated **robust material recommendation**, consistent with DFT validation.  
+
+---
+
+## 📜 License
+
+- MOFReasoner is released under the **MIT License**.  
+- Distilled base models (Qwen, LLaMA) retain their original licenses (Apache 2.0 / LLaMA license).
+
+---
+
+## 📚 Citation
+
+If you use MOFReasoner in your research, please cite:
+
+```bibtex
+@article{bai2025mofreasoner,
+  title={MOFReasoner: Think Like a Scientist—A Domain-Specific Reasoning LLM via Knowledge Distillation},
+  author={Bai, Xuefeng and Zheng, Zhiling and Wang, Hao-Tian and Yang, Rui and Zhang, Xin and Li, Jian-Rong},
+}
+```
+
+---
+
+## 📬 Contact
+
+- **Corresponding Authors**:  
+  
+  - Prof. Jian-Rong Li, Beijing University of Technology (jrli@bjut.edu.cn)  
+  - Prof. Xin Zhang, Beijing University of Technology (zhang.xin@bjut.edu.cn)  
+
+- **Project Maintainers**:  
+  
+  - Xuefeng Bai (Beijing University of Technology)  
+  - Zhiling Zheng (MIT)  
