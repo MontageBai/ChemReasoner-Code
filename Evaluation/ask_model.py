@@ -16,7 +16,9 @@ with open("answers.jsonl", "w", encoding="utf-8") as out:
         response = model.chat(
             messages=[
         {"role": "user", "content": question}
-    ]
+    ],
+            temperature=0.9,
+            max_tokens=4096 
         )
 
         record = {
